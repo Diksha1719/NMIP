@@ -1,0 +1,10 @@
+legacy_material_code,original_description,category,unit,manufacturer,specification,standard
+DEMO-VLV-001,Gate Valve 2 inch CS CL150,Valves,ea,Synthetic OEM,,
+DEMO-BRG-001,Bearing 6205-2RS,Bearings,ea,Synthetic OEM,,
+DEMO-BRG-002,Bearing 6205-2Z,Bearings,ea,Synthetic OEM,,
+DEMO-PMP-001,Pump 5HP SS304,Pumps,ea,Synthetic OEM,,
+DEMO-ELE-001,Motor 5HP 230V 3PH,Electrical,ea,Synthetic OEM,,
+DEMO-FST-001,Hex Bolt M10 x 50 SS304 plain,Fasteners,ea,Synthetic OEM,,
+,Gate Valve 3 inch CS CL150,Valves,ea,Synthetic OEM,,
+DEMO-VLV-001,Duplicate source code test,Valves,ea,Synthetic OEM,,
+DEMO-INVALID,Unit validation example,Fasteners,invalid,Synthetic OEM,,

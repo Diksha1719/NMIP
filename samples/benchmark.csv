@@ -1,0 +1,10 @@
+description_a,description_b,category,label
+Gate Valve 2 inch CS CL150,Gate V/V 50.8mm Carbon Steel Class 150,Valves,IDENTITY_MATCH
+Bearing 6205-2RS,Bearing 6205-2Z,Bearings,DO_NOT_MERGE
+Pump 5HP SS304,Pump 5 HP Stainless Steel,Pumps,INSUFFICIENT_INFORMATION
+Motor 5HP 415V 3PH,Motor 5HP 230V 3PH,Electrical,DO_NOT_MERGE
+Hex Bolt M10 x 50 SS304 plain,Hex Bolt 10mm x 50mm SS304 plain,Fasteners,IDENTITY_MATCH
+Hex Bolt M10 x 50 SS304 plain,Hex Bolt M10 x 50 SS304 galvanized,Fasteners,POTENTIAL_SUBSTITUTE
+Bearing 6205-2RS,Bearing 6205-2RS,Bearings,IDENTITY_MATCH
+Gate Valve 2 inch CS CL150,Gate Valve 2 inch CS CL300,Valves,DO_NOT_MERGE
+Hex Bolt M10 x 50 SS304,Stainless Steel Hex Bolt 10mm x 50mm,Fasteners,INSUFFICIENT_INFORMATION

@@ -1,0 +1,86 @@
+import { test, expect } from '@playwright/test';
+import path from 'node:path';
+
+const password = process.env.DEMO_PASSWORD;
+if (!password) throw new Error('Set DEMO_PASSWORD for the seeded local instance before UI tests.');
+async function login(page: any, role: string) {
+  await page.goto('/login');
+  await page.getByLabel('Email address').fill(`${role}@nmip.local`);
+  await page.getByLabel('Password', { exact: true }).fill(password!);
+  await page.getByRole('button', { name: 'Sign in to workspace' }).click();
+  await expect(page.getByRole('heading', { name: 'Material intelligence, at a glance' })).toBeVisible();
+  await expect(page.locator('.metric-value').first()).toBeVisible();
+  expect(Number(await page.locator('.metric-value').first().innerText())).toBeGreaterThanOrEqual(60);
+}
+
+test('complete source-to-identity workflow with review and duplicate prevention', async ({ page }) => {
+  await login(page, 'steward');
+  await page.screenshot({ path: 'test-results/dashboard.png', fullPage: true });
+  await page.getByRole('link', { name: 'Data ingestion', exact: true }).click();
+  await page.getByLabel('Source organization').selectOption({ label: 'CPSE-A · Synthetic' });
+  const code = `E2E-${Date.now()}`;
+  await page.getByLabel(/Source file/).setInputFiles({ name: 'e2e-synthetic.csv', mimeType: 'text/csv', buffer: Buffer.from(`legacy_material_code,original_description,category,unit\n${code},Gate Valve 2 inch CS CL150,Valves,ea\n,Missing source code,Valves,ea\n`) });
+  await page.getByRole('button', { name: 'Upload & preview', exact: true }).click();
+  await page.getByRole('button', { name: 'Validate mapping & rows' }).click();
+  await expect(page.getByRole('heading', { name: '1 valid · 1 invalid' })).toBeVisible();
+  await expect(page.getByText('Missing material code', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Import 1 valid rows' }).click();
+  await expect(page.getByRole('status')).toContainText('Validated rows imported');
+  await page.getByRole('link', { name: 'Continue to normalization' }).click();
+  await page.getByRole('button', { name: 'Run normalization' }).click();
+  await expect(page.getByRole('status')).toContainText('completed');
+  await page.getByRole('link', { name: 'Next pipeline stage' }).click();
+  await page.getByRole('button', { name: 'Run extraction' }).click();
+  await expect(page.getByRole('status')).toContainText('completed');
+  await page.getByRole('link', { name: 'Candidate center', exact: true }).click();
+  await page.getByRole('button', { name: 'Retrieve candidates' }).click();
+  await expect(page.getByRole('status')).toContainText('Candidates retrieved');
+  await page.getByRole('button', { name: 'Sign out', exact: true }).click();
+  await page.getByLabel('Email address').fill('engineer@nmip.local');
+  await page.getByLabel('Password', { exact: true }).fill(password!);
+  await page.getByRole('button', { name: 'Sign in to workspace' }).click();
+  await page.getByRole('link', { name: 'Review queue', exact: true }).click();
+  await page.getByRole('button', { name: /^Identity Match/ }).click();
+  const card = page.locator('.candidate-card').filter({ hasText: 'Valves' }).filter({ hasText: 'Pending' }).first();
+  await card.getByRole('link', { name: 'Compare & review' }).click();
+  await expect(page.getByRole('heading', { name: 'Attribute-by-attribute comparison' })).toBeVisible();
+  await page.getByRole('button', { name: /View evidence/ }).click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await expect(page.getByRole('dialog').locator('blockquote').first()).toBeVisible();
+  await page.getByRole('button', { name: 'Close evidence' }).click();
+  await page.getByLabel('Review comment / What information is missing?').fill('Synthetic UI test: source evidence and critical attributes verified.');
+  await page.getByRole('button', { name: 'Approve identity match', exact: true }).click();
+  await page.getByRole('link', { name: 'Open identity', exact: true }).click();
+  await expect(page.getByRole('heading', { name: /^NMC-VLV-/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Legacy-code mapping' })).toBeVisible();
+  await page.getByRole('button', { name: 'Publish to catalog' }).click();
+  await expect(page.getByRole('status')).toContainText('published');
+  await page.getByRole('link', { name: 'Duplicate prevention', exact: true }).click();
+  await page.getByLabel('Engineering description / attributes').fill('Gate Valve 2 inch CS CL150');
+  await page.getByRole('button', { name: 'Check existing identities' }).click();
+  await expect(page.getByRole('heading', { name: 'Potential existing material identity' })).toBeVisible();
+  await page.getByRole('link', { name: 'Audit & versioning', exact: true }).click();
+  await page.getByLabel('Search audit').fill('ENGINEER_APPROVE');
+  await expect(page.getByText('Engineer Approve', { exact: true }).first()).toBeVisible();
+  await page.getByRole('link', { name: 'Proof Board', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Awaiting benchmark dataset' })).toBeVisible();
+  await page.getByLabel('Labeled benchmark file').setInputFiles(path.resolve('../samples/benchmark.csv'));
+  await page.getByRole('button', { name: 'Run benchmark' }).click();
+  await expect(page.getByRole('heading', { name: 'Latest benchmark results' })).toBeVisible();
+});
+
+test('viewer cannot access write controls and narrow layout stays usable', async ({ page }) => {
+  await page.goto('/login');
+  await page.getByLabel('Email address').fill('viewer@nmip.local');
+  await page.getByLabel('Password', { exact: true }).fill(password!);
+  await page.getByRole('button', { name: 'Sign in to workspace' }).click();
+  await page.getByRole('link', { name: 'Review queue', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Retrieve candidates' })).toHaveCount(0);
+  await page.getByRole('link', { name: 'Compare & review' }).first().click();
+  await expect(page.getByRole('button', { name: 'Approve identity match' })).toHaveCount(0);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/dashboard');
+  await expect(page.getByRole('heading', { name: 'Material intelligence, at a glance' })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBeTruthy();
+  await page.screenshot({ path: 'test-results/mobile.png', fullPage: true });
+});

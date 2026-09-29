@@ -112,16 +112,16 @@ body:before{opacity:.42;background-image:linear-gradient(#a86e6012 1px,transpare
   background-image: url('/cpcl-heritage.jpg');
   background-size: cover;
   background-position: center right;
-  opacity: 0.88;
+  opacity: 0.92;
   mix-blend-mode: normal;
   pointer-events: none;
-  filter: contrast(1.06) saturate(1.1);
+  filter: brightness(1.05) contrast(1.05) saturate(1.1);
 }
 
 .cpcl-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(244, 235, 221, 0.86) 0%, rgba(244, 235, 221, 0.52) 38%, rgba(244, 235, 221, 0.12) 100%);
+  background: linear-gradient(90deg, rgba(244, 235, 221, 0.68) 0%, rgba(244, 235, 221, 0.42) 45%, rgba(244, 235, 221, 0.15) 100%);
   pointer-events: none;
 }
 

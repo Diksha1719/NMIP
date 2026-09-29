@@ -96,29 +96,31 @@ export default function MasterLandingPage() {
         />
         <div className="cpcl-hero-overlay" />
 
-        <div className="cpcl-container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'center' }}>
+        <div className="cpcl-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', maxWidth: '850px', margin: '0 auto' }}>
           
-          {/* Left Hero Content */}
+          {/* Centered Hero Content */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}
           >
-            <div style={{ fontSize: '11px', letterSpacing: '2px', fontWeight: 800, color: '#A65F3B', marginBottom: '16px', display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+            <div style={{ fontSize: '11px', letterSpacing: '2px', fontWeight: 800, color: '#A65F3B', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
               <span style={{ width: '18px', height: '2px', backgroundColor: '#A65F3B' }}></span>
               NATIONAL MATERIAL INTELLIGENCE PLATFORM
+              <span style={{ width: '18px', height: '2px', backgroundColor: '#A65F3B' }}></span>
             </div>
 
-            <h1 className="cpcl-heading-hero" style={{ color: '#2B211B' }}>
+            <h1 className="cpcl-heading-hero" style={{ color: '#2B211B', textAlign: 'center' }}>
               One Nation.<br />
               <span style={{ color: '#A65F3B' }}>One Material Identity.</span>
             </h1>
 
-            <p style={{ fontSize: '16px', lineHeight: 1.7, color: '#6F6258', maxWidth: '580px', marginBottom: '36px' }}>
+            <p style={{ fontSize: '16px', lineHeight: 1.7, color: '#6F6258', maxWidth: '680px', marginBottom: '36px', textAlign: 'center' }}>
               An AI-driven framework for standardizing, harmonizing and intelligently managing material master data across Central Public Sector Enterprises.
             </p>
 
-            <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '16px', alignItems: 'center', justifyContent: 'center' }}>
               <Link href="/login" className="cpcl-btn-primary">
                 Explore Platform →
               </Link>
@@ -127,7 +129,7 @@ export default function MasterLandingPage() {
               </a>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginTop: '48px', paddingTop: '24px', borderTop: '1px solid rgba(217, 200, 180, 0.6)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px', marginTop: '48px', paddingTop: '24px', borderTop: '1px solid rgba(217, 200, 180, 0.6)', width: '100%', maxWidth: '500px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', fontWeight: 600, color: '#6F6258' }}>
                 <Building2 size={16} color="#A65F3B" />
                 NMIP & CPSE Ecosystem
@@ -136,129 +138,6 @@ export default function MasterLandingPage() {
                 <ShieldCheck size={16} color="#5F775F" />
                 Government Governed
               </div>
-            </div>
-          </motion.div>
-
-          {/* Right Hero Visual: Material Identity Flow Animation */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            style={{ position: 'relative' }}
-          >
-            <div style={{
-              background: '#FBF8F2',
-              border: '1px solid #D9C8B4',
-              borderRadius: '20px',
-              padding: '36px',
-              boxShadow: '0 20px 60px rgba(43, 33, 27, 0.08)',
-              position: 'relative'
-            }}>
-              
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px', borderBottom: '1px solid #EADCC8', paddingBottom: '16px' }}>
-                <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '1.2px', color: '#6F6258' }}>LIVE AI HARMONIZATION FLOW</span>
-                <span style={{ fontSize: '10px', background: '#EADCC8', color: '#2B211B', padding: '3px 8px', borderRadius: '4px', fontWeight: 600 }}>SYNTHETIC STREAM</span>
-              </div>
-
-              {/* Source Records Stack */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '24px' }}>
-                {/* Source A */}
-                <motion.div
-                  initial={{ x: -15, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                  style={{
-                    background: '#F4EBDD',
-                    border: '1px solid #D9C8B4',
-                    borderRadius: '10px',
-                    padding: '14px 16px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                  }}
-                >
-                  <div>
-                    <div style={{ fontSize: '10px', fontWeight: 700, color: '#A65F3B' }}>NMIP · MAT-10021</div>
-                    <div style={{ fontSize: '13px', fontWeight: 700, color: '#2B211B', marginTop: '2px' }}>SS PIPE 304 2" CL150</div>
-                  </div>
-                  <span style={{ fontSize: '11px', color: '#6F6258', fontFamily: 'monospace' }}>UOM: EA</span>
-                </motion.div>
-
-                {/* Source B */}
-                <motion.div
-                  initial={{ x: -15, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                  style={{
-                    background: '#F4EBDD',
-                    border: '1px solid #D9C8B4',
-                    borderRadius: '10px',
-                    padding: '14px 16px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                  }}
-                >
-                  <div>
-                    <div style={{ fontSize: '10px', fontWeight: 700, color: '#6F6258' }}>IOCL · MAT-782341</div>
-                    <div style={{ fontSize: '13px', fontWeight: 700, color: '#2B211B', marginTop: '2px' }}>STAINLESS PIPE 304 GRADE 2"</div>
-                  </div>
-                  <span style={{ fontSize: '11px', color: '#6F6258', fontFamily: 'monospace' }}>UOM: NOS</span>
-                </motion.div>
-              </div>
-
-              {/* Central AI Engine Node */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '20px 0', position: 'relative' }}>
-                <div style={{ height: '1px', background: '#D9C8B4', position: 'absolute', width: '100%', zIndex: 1 }}></div>
-                <motion.div
-                  animate={{ scale: [1, 1.06, 1] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                  style={{
-                    position: 'relative',
-                    zIndex: 2,
-                    background: '#2B211B',
-                    color: '#FBF8F2',
-                    padding: '10px 24px',
-                    borderRadius: '30px',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    boxShadow: '0 6px 20px rgba(43, 33, 27, 0.25)'
-                  }}
-                >
-                  <Cpu size={15} color="#A65F3B" />
-                  <span>AI MATCH ENGINE · 98.7%</span>
-                </motion.div>
-              </div>
-
-              {/* Result: Common Material Identity */}
-              <motion.div
-                initial={{ y: 15, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                style={{
-                  background: 'linear-gradient(135deg, #2B211B 0%, #403027 100%)',
-                  color: '#FBF8F2',
-                  borderRadius: '12px',
-                  padding: '18px 20px',
-                  border: '1px solid #A65F3B',
-                  boxShadow: '0 10px 30px rgba(166, 95, 59, 0.2)'
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                  <span style={{ fontSize: '10px', letterSpacing: '1px', color: '#A65F3B', fontWeight: 700 }}>COMMON NATIONAL MATERIAL IDENTITY</span>
-                  <span style={{ fontSize: '10px', background: '#5F775F', color: '#FBF8F2', padding: '2px 8px', borderRadius: '4px', fontWeight: 600 }}>VERIFIED</span>
-                </div>
-                <div style={{ fontSize: '18px', fontWeight: 800, color: '#FBF8F2', letterSpacing: '0.5px' }}>
-                  NMC-SS304-002
-                </div>
-                <div style={{ fontSize: '12px', color: '#EADCC8', marginTop: '4px' }}>
-                  Pipe, Stainless Steel SS304, Nominal Size 2 Inch, Class 150
-                </div>
-              </motion.div>
-
             </div>
           </motion.div>
 
